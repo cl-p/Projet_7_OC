@@ -90,7 +90,10 @@ exports.getOnePost = (req, res, next) => {
             .catch(error => res.status(400).json({ error }));
         });
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => {
+      console.log(error),
+      res.status(500).json({ error })
+    });
 };
    
 
@@ -106,6 +109,7 @@ exports.getOnePost = (req, res, next) => {
         res.status(200).json({ message: 'Objet modifié !'})
       )
       .catch(error => 
+        console.log(error),
         res.status(400).json({ error })
       );
   };

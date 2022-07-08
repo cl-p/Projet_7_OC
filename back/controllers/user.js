@@ -3,21 +3,35 @@ const jwt = require('jsonwebtoken')
 
 const User = require('../models/user')
 // fonction signup pour l'enregistrement de nouveau utilisateur
+// la requête doit contenir un email et un 
+/* exemple :
+{
+    "email": "email@exemple.com",
+    "password": "password"
+}
+*/
 exports.signup = (req, res, next) => {
+    console.log(req.body)
     // hash permet de hacher le mot de passe, la fonction hash est asynchrone
     // le paramètre 10 c'est le nombre de tours de hachage --> plus c'est élévé plus c'est sécurisé mais PLUS c'est long à répondre aussi
     bcrypt.hash(req.body.password, 10)
     .then(hash => {
+        
       const user = new User({
         email: req.body.email,
-        password: hash
+        password: hash,
+        isAdmin: false,
       });
       // save permet d'enregistrer les informations dans la bdd
       user.save()
         .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
-        .catch(error => res.status(400).json({ error }));
+        .catch(error => {
+            console.log(error)
+            res.status(400).json({ error })
+        });
     })
     .catch(error =>{
+        console.log(error)
         res.status(500).json({ error })
     })
 };
