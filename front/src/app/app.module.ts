@@ -4,6 +4,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { ConnexionPageComponent } from './connexion-page/connexion-page.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
+import { AccueilPageComponent } from './accueil-page/accueil-page.component';
+import { RoutingModule } from './routing/routing.module';
 
 
 @NgModule({
@@ -11,9 +13,11 @@ import { TopBarComponent } from './top-bar/top-bar.component';
     AppComponent,
     ConnexionPageComponent,
     TopBarComponent,
+    AccueilPageComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    RoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
