@@ -1,0 +1,14 @@
+@import "../../theme.scss";
+.top-bar {
+    height: 80px;
+    width: 100%;
+    background-color: $primary-color;
+    z-index: 0;
+    box-shadow: 1px 3px 9px $tertiary-color;
+}
+img{
+    height: 140px;
+    width: auto;
+    margin-top: - 30px;
+    padding-left: 20px;
+}

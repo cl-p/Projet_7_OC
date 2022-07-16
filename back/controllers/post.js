@@ -1,11 +1,10 @@
-const post = require('../models/post');
+const Post = require('../models/post');
 const fs = require('fs');
 
 
 exports.createPost = (req, res, next) => {
   // Pour ajouter un fichier à la requête, le front-end doit envoyer les données de la requête sous la forme form-data, et non sous forme de JSON
   const postObject = JSON.parse(req.body.post);
-  console.log(postObject)
   
   const post = new Post({
     description: postObject.description,
@@ -16,13 +15,16 @@ exports.createPost = (req, res, next) => {
     usersLiked: [],
 
     // on récupère l'id qui a été créé précédemment dans le middleware
-    userId: req.auth.userId,
-
-    // req.protocole --> segment http de l'url de l'image
-    // req.get('host') --> segment pour ajouter l'hôte du server à l'url de l'image
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+    // userId: req.auth.userId,
+    userId: 0,
+    
   });
-  console.log(post)
+
+  // req.protocole --> segment http de l'url de l'image
+  // req.get('host') --> segment pour ajouter l'hôte du server à l'url de l'image
+  if (req.file != undefined){ 
+    post.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+  }
   // save renvoie une promesse
   post.save().then(
     () => {
