@@ -9,6 +9,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { CreationPostPageComponent } from './creation-post-page/creation-post-page.component';
 import { PostService } from './services/post.service';
 import { HttpClientModule } from '@angular/common/http';
+import { PostDisplayComponent } from './post-display/post-display.component';
 
 
 
@@ -29,7 +30,8 @@ const routes: Routes = [
     TopBarComponent,
     AccueilPageComponent,
     NotFoundComponent,
-    CreationPostPageComponent
+    CreationPostPageComponent,
+    PostDisplayComponent
     
   ],
   imports: [

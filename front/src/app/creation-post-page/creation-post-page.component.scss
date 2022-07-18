@@ -1,0 +1,61 @@
+@import "../../theme.scss";
+@import "../../typography.scss";
+
+
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-top: 30px;
+
+
+    .post-container{
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+        #description {
+            font-family: 'lato-light-italic';
+        }
+        
+        .icone-button{
+            background-color: white;
+            border-width: 0px;
+            
+            .fa-image{
+                font-size: x-large;
+                color: $tertiary-color;
+                &:hover{
+                    color: $secondary-color;
+                    transition: all 350ms ease-in-out;
+                }
+            }   
+        }
+        #input-upload {
+            display: none;
+        }
+    }
+    .button-post {
+        height: 35px;
+        width: 200px;
+        background-color: $secondary-color;
+        font-family: 'lato-semi-bold';
+        border-width: 0px;
+        &:hover {
+            background-color: $tertiary-color;
+            color: white;
+            box-shadow: 5px 5px 3px rgba(114, 114, 142, 0.523);
+            transition: all 350ms ease-in-out;
+    }
+
+}
+    
+}
+
+
+
+
+
+
