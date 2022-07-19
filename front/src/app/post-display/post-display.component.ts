@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Post } from '../models/Post';
 
 @Component({
   selector: 'app-post-display',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-display.component.scss']
 })
 export class PostDisplayComponent implements OnInit {
-
+  @Input() post: Post = new Post();
   constructor() { }
 
   ngOnInit(): void {

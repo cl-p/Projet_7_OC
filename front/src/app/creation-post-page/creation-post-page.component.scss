@@ -48,9 +48,14 @@
             color: white;
             box-shadow: 5px 5px 3px rgba(114, 114, 142, 0.523);
             transition: all 350ms ease-in-out;
-    }
+        }
 
-}
+    }
+    .icone-post{
+        display: flex;
+        flex-direction: row;
+        gap: 20px;
+    }
     
 }
 

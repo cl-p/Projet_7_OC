@@ -1,1 +1,16 @@
-<p>post-display works!</p>
+<div class="post-card">
+    <h3>
+        {{ post.name }}
+    </h3>
+    <div class="post-card-container">
+        <!-- {{}} = interpolation -->
+        {{ post.description}}
+        <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
+        <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
+        <div class="icone">
+            <i class="far fa-thumbs-up"></i>
+            <i class="far fa-thumbs-down"></i>
+        </div>
+    </div>
+
+</div>

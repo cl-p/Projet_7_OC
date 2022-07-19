@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Post } from '../models/Post';
 import { PostService } from '../services/post.service';
 
 @Component({
@@ -8,11 +9,15 @@ import { PostService } from '../services/post.service';
 })
 export class AccueilPageComponent implements OnInit {
 
+  posts: Post[] = []
+  // postservice est une dépendance
+  // private = postservice utilisé uniquement dans la class accueilpagecomponent
   constructor(private postService: PostService) { }
-
+  
+  // ngOnInit --> fonction qui se lance dès que le component est initialisé (hook)
   ngOnInit(): void {
-    this.postService.getAllPosts().subscribe(posts => {
-      console.log(posts)
+    this.postService.getAllPosts().subscribe(results => {
+      this.posts = results
     })
   }
 

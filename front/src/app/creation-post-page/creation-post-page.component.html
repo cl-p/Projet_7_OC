@@ -4,6 +4,7 @@
         <textarea name="post" id="description" cols="100" rows="20">Ecrivez ici ce que vous avez à dire !</textarea>
         <div class="icone-post">
             <input type="file" id="input-upload" (change)="handleFileInput($event)">
+            <p> {{fileName}} </p>
             <button class="icone-button" (click)="selectFile()" ><i class="far fa-image"></i></button>
         </div>
 
