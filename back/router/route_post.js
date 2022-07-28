@@ -7,7 +7,8 @@ const multer = require('../middleware/multer-config')
 // localhost:3001/api/post
 // le routeur ne vérifie que ce qui vient après /api/post
 router.get('/', postCtrl.getAllPost);
-router.post('/', multer ,postCtrl.createPost);
+router.post('/', multer, postCtrl.createPost);
+
 router.get('/:id', postCtrl.getOnePost);
 router.put('/:id', multer, postCtrl.modifyPost);
 router.delete('/:id', postCtrl.deletePost);

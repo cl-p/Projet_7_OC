@@ -19,4 +19,12 @@ export class PostService {
     return this.http.get<Post []>(path + "post")
   }
 
+  createPosts(description: string, image: File):Observable<any> {
+    const body = new FormData();
+    body.append("post", description)
+    body.append("image", image)
+    return this.http.post<any>(path + "post", body )
+  }
+
+
 }

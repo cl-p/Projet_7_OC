@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ignoreElements } from 'rxjs';
 import { PostService } from '../services/post.service';
 
 @Component({
@@ -9,15 +12,23 @@ import { PostService } from '../services/post.service';
 export class CreationPostPageComponent implements OnInit {
 
 
-  fileToUpload: File | null = null;
+
+  postForm: FormGroup = this.formBuilder.group({
+    'description': ['', Validators.required]
+  }); 
+  fileToUpload: any;
   fileName: string = "";
 
   constructor(
-    postService: PostService,
+    private postService: PostService,
+    private formBuilder: FormBuilder,
+    private router: Router,
   ) { }
 
+  // se charge lors du chargement de la page
   ngOnInit(): void {
   }
+
 
   selectFile() {
     let element: HTMLElement = document.getElementById('input-upload') as HTMLElement;
@@ -38,4 +49,13 @@ export class CreationPostPageComponent implements OnInit {
     // une clé "image" qui contient le fichier stocké dans fileToUpload 
   }
 
+  addPost(){
+    const value = this.postForm.value
+    this.postService.createPosts(value.description, this.fileToUpload).subscribe(
+      resp=> {
+        this.router.navigate([ "/" ])
+
+      }
+    )
+  }
 }

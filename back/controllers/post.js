@@ -4,10 +4,10 @@ const fs = require('fs');
 
 exports.createPost = (req, res, next) => {
   // Pour ajouter un fichier à la requête, le front-end doit envoyer les données de la requête sous la forme form-data, et non sous forme de JSON
-  const postObject = JSON.parse(req.body.post);
+
   
   const post = new Post({
-    description: postObject.description,
+    description: req.body.post,
     // pour likes et dislikes on leur met une valeur par defaut 
     likes: 0,
     dislikes: 0,

@@ -1,7 +1,8 @@
 
 <div class="container">
+    <form [formGroup]="postForm" (submit)="addPost()">
     <div class="post-container">
-        <textarea name="post" id="description" cols="100" rows="20">Ecrivez ici ce que vous avez à dire !</textarea>
+        <textarea name="post" id="description" cols="100" rows="20" formControlName="description">Ecrivez ici ce que vous avez à dire !</textarea>
         <div class="icone-post">
             <input type="file" id="input-upload" (change)="handleFileInput($event)">
             <p> {{fileName}} </p>
@@ -11,6 +12,6 @@
 
 
     </div>
-    <button class="button-post"> Poster !</button>
-   
+    <button class="button-post" [disabled]="postForm.invalid"> Poster !</button>
+   </form>
 </div>
