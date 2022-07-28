@@ -19,11 +19,8 @@ import { LoginComponent } from './login/login.component';
 const routes: Routes = [
   { path: '', component: AccueilPageComponent},
   { path: 'new-post', component: CreationPostPageComponent},
-
-
-
-
-
+  { path: 'login', component: LoginComponent },
+  { path: 'sign-up', component: SignUpComponent},
   { path: '**', component: NotFoundComponent},
 ];
 @NgModule({
