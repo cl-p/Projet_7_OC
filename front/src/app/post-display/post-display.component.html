@@ -8,8 +8,8 @@
         <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
         <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
         <div class="icone">
-            <i class="far fa-thumbs-up"></i>
-            <i class="far fa-thumbs-down"></i>
+            <i class="far fa-thumbs-up" (click)="onLike()"></i>
+            <i class="far fa-thumbs-down" (click)="onDislike()"></i>
         </div>
     </div>
 

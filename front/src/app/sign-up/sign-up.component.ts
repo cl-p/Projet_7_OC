@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ignoreElements } from 'rxjs';
-import { PostService } from '../services/post.service';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-sign-up',
@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
   });
 
   constructor(
-    private postService: PostService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) {}
@@ -26,7 +26,9 @@ export class SignUpComponent implements OnInit {
   }
   
 
-  signUp(){
-
+  onSubmit(){
+    this.authService.signUp(this.signUpForm.value.email, this.signUpForm.value.password).subscribe(resp =>{
+      this.router.navigate(["/"])
+    })
   }
 }

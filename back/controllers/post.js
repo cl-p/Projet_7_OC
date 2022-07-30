@@ -41,28 +41,6 @@ exports.createPost = (req, res, next) => {
     }
   );
 };
-
-
-
-
-exports.getOnePost = (req, res, next) => {
-    // findOne renvoie une promesse
-    Post.findOne({
-      _id: req.params.id
-    }).then(
-      (post) => {
-        res.status(200).json(post);
-      }
-    ).catch(
-      (error) => {
-        console.log(error)
-        res.status(404).json({
-          error: error
-        });
-      }
-    );
-  };
-  
   
 
 

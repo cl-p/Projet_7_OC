@@ -13,6 +13,7 @@ import { PostDisplayComponent } from './post-display/post-display.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
+import { AuthService } from './services/auth.service';
 
 
 
@@ -45,6 +46,7 @@ const routes: Routes = [
   ],
   providers: [
     PostService,
+    AuthService,
   ],
   bootstrap: [AppComponent]
 })

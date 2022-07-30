@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Post } from '../models/Post';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'app-post-display',
@@ -8,9 +9,19 @@ import { Post } from '../models/Post';
 })
 export class PostDisplayComponent implements OnInit {
   @Input() post: Post = new Post();
-  constructor() { }
+  constructor(
+    private postService: PostService,
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  onLike(){
+    this.postService.like(this.post._id)
+  }
+
+  onDislike(){
+
   }
 
 }

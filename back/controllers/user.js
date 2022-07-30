@@ -24,7 +24,15 @@ exports.signup = (req, res, next) => {
       });
       // save permet d'enregistrer les informations dans la bdd
       user.save()
-        .then(() => res.status(201).json({ message: 'Utilisateur créé !' }))
+        .then((userDoc) => res.status(201).json({ user: {
+            email: userDoc.email,
+            isAdmin: userDoc.isAdmin,
+            token: jwt.sign({
+                userId: userDoc._id 
+            },
+                'RANDOM_TOKEN_SECRET',
+                { expiresIn: '24h' })
+        } }))
         .catch(error => {
             console.log(error)
             res.status(400).json({ error })

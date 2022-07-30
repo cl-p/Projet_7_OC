@@ -1,3 +1,5 @@
 <div class="top-bar"> 
     <a [routerLink]="''"><img src="../../assets/logo/icon-left-font-monochrome-white.png" alt="logo-groupomania"></a>
+
+    <button (click)="logOut()" *ngIf="isConnected()"> Log Out </button>
 </div>
