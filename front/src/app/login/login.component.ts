@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ignoreElements } from 'rxjs';
-import { PostService } from '../services/post.service';
+import { AuthService } from '../services/auth.service';
+
 
 
 @Component({
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   });
 
   constructor(
-    private postService: PostService,
+    private authService: AuthService,
     private formBuilder: FormBuilder,
     private router: Router,
   ) { }
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit {
   }
 
   login(){
-    
+    this.authService.login(this.loginForm.value.email, this.loginForm.value.password).subscribe(resp =>{
+      this.router.navigate(["/"])
+    })
 
   }
 

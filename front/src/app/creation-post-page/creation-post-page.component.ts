@@ -11,14 +11,13 @@ import { PostService } from '../services/post.service';
 })
 export class CreationPostPageComponent implements OnInit {
 
-
-
   postForm: FormGroup = this.formBuilder.group({
     'description': ['', Validators.required]
   }); 
   fileToUpload: any;
   fileName: string = "";
 
+  // injections de dépendances
   constructor(
     private postService: PostService,
     private formBuilder: FormBuilder,
@@ -30,16 +29,18 @@ export class CreationPostPageComponent implements OnInit {
   }
 
 
+  // méthode pour pouvoir sélectionner un fichier lors du click sur l'icone 
   selectFile() {
     let element: HTMLElement = document.getElementById('input-upload') as HTMLElement;
     element.click();
     console.log(element)
   }
 
+  // affichage du fichier sélectionner, si un fichier a été sélectionné
   handleFileInput(event: any) {
     
     this.fileToUpload = event.target.files.item(0);
-    // ? : condition ternaire
+    // ? : condition ternaire (correspond à un else if)
     this.fileName = this.fileToUpload ? this.fileToUpload.name :""; 
     console.log(this.fileToUpload)
     
@@ -49,9 +50,11 @@ export class CreationPostPageComponent implements OnInit {
     // une clé "image" qui contient le fichier stocké dans fileToUpload 
   }
 
+  // méthode pour ajouter un nouveau post
   addPost(){
     const value = this.postForm.value
     this.postService.createPosts(value.description, this.fileToUpload).subscribe(
+      // lorsque l'api répond, le user est redirigé vers l'accueil
       resp=> {
         this.router.navigate([ "/" ])
 

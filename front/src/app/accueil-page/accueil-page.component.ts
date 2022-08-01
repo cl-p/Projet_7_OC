@@ -16,6 +16,8 @@ export class AccueilPageComponent implements OnInit {
   
   // ngOnInit --> fonction qui se lance dès que le component est initialisé (hook)
   ngOnInit(): void {
+    // PostService est une injection de dépendance, on peut donc utiliser "this" ainsi que les méthodes présentes dans ce service
+    // .subscribe fonctionne comme .then, il attend la réponse de la promesse pour se déclencher
     this.postService.getAllPosts().subscribe(results => {
       this.posts = results
     })
