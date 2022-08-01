@@ -15,8 +15,8 @@ exports.createPost = (req, res, next) => {
     usersLiked: [],
 
     // on récupère l'id qui a été créé précédemment dans le middleware
-    // userId: req.auth.userId,
-    userId: 0,
+    userId: req.auth.userId,
+  
     
   });
 
@@ -51,24 +51,33 @@ exports.createPost = (req, res, next) => {
     // sinon, on retourne une erreur 
     Post.findOne({ _id: req.params.id }).then(
       (post) => {
+        // !post : veut dire que le post n'existe pas 
         if (!post) {
           res.status(404).json({
-            error: new Error('Erreur!')
+            error: new Error("Le post n'existe pas!")
           });
         }
         if (post.userId !== req.auth.userId) {
-          res.status(400).json({
+          res.status(403).json({
             error: new Error('Unauthorized request!')
           });
         }
         
-        const filename = post.imageUrl.split('/images/')[1];
-        fs.unlink(`images/${filename}`, (err) => {
-          console.log(err)
-          Post.deleteOne({ _id: req.params.id })
+        if (post.imageUrl != undefined){
+          const filename = post.imageUrl.split('/images/')[1];
+          fs.unlink(`images/${filename}`, (err) => {
+            console.log(err)
+            Post.deleteOne({ _id: req.params.id })
             .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
             .catch(error => res.status(400).json({ error }));
-        });
+          });
+        }
+        else{
+           Post.deleteOne({ _id: req.params.id })
+              .then(() => res.status(200).json({ message: 'Objet supprimé !'}))
+              .catch(error => res.status(400).json({ error }));
+        }
+        
     })
     .catch(error => {
       console.log(error),
@@ -126,6 +135,7 @@ exports.createPost = (req, res, next) => {
     Post.findOne({ _id: req.params.id }).then(
       (s) => {
         let nblike = req.body.like
+        removeVote(s, req.auth.userId)
         if (nblike === 1){
 
           like(s, req.auth.userId);
@@ -139,8 +149,8 @@ exports.createPost = (req, res, next) => {
         }
         
         // .save permet de mettre à jour le post 
-        s.save().then(() => 
-          res.status(200).json({ message: 'Objet modifié !'})
+        s.save().then((post) => 
+          res.status(200).json(post)
         )
         .catch(error => { 
           console.log(error);

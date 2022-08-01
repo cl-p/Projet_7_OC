@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable, tap } from 'rxjs';
 import { User } from '../models/User';
+import jwt_decode from "jwt-decode";
 const path = environment.pathAuth;
 
 
@@ -13,6 +14,14 @@ export class AuthService {
 
   get token(){
     return localStorage.getItem("token")
+  }
+
+  get decodedToken(){
+    if (this.token != null){
+      return jwt_decode(this.token)
+    }
+    return null
+
   }
 
   constructor(private http: HttpClient) { }
@@ -36,7 +45,7 @@ export class AuthService {
     }).pipe(
       tap((resp: any) => {
 
-        localStorage.setItem("token", resp.user.token)
+        localStorage.setItem("token", resp.token)
       })
     )
   };
@@ -48,6 +57,17 @@ export class AuthService {
 
   isConnected():boolean {
     
+    if(this.token === null){
+      return false
+    }
+
+    const decodedToken = jwt_decode(this.token) as any;
+    // renvoie la date du jour en format "date UTC"
+    const today = Math.floor((new Date()).getTime()/1000)
+    if (today > decodedToken.exp){
+      // on compare la date du jour à celle de la date d'expiration du token
+      return false
+    }
     return this.token != null
   }
 

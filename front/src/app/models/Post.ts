@@ -1,4 +1,5 @@
 export class Post{
+    userId: string = ""
     name: string = ""
     _id: string = ""
     description: string = ""

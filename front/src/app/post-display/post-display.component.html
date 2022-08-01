@@ -3,13 +3,16 @@
         {{ post.name }}
     </h3>
     <div class="post-card-container">
+        <div class="suppression-post">
+            <button (click)="removePost()">Supprimer</button>
+        </div>
         <!-- {{}} = interpolation -->
         {{ post.description}}
         <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
         <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
         <div class="icone">
-            <i class="far fa-thumbs-up" (click)="onLike()"></i>
-            <i class="far fa-thumbs-down" (click)="onDislike()"></i>
+            <i class="far fa-thumbs-up" (click)="onLike()" [ngClass]="{'liked': isLiked()}"></i> {{post.likes}}
+            <i class="far fa-thumbs-down" (click)="onDislike()" [ngClass]="{'disliked': isDisliked()}"></i> {{post.dislikes}}
         </div>
     </div>
 

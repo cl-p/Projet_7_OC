@@ -23,4 +23,12 @@ export class AccueilPageComponent implements OnInit {
     })
   }
 
+  onPostRemoved(){
+    this.postService.getAllPosts().subscribe(results => {
+      this.posts = results
+    })
+  }
+
+
+
 }

@@ -7,6 +7,6 @@
 
 
 <!-- *ngFor = permet de dupliquer du code pour chaque post  -->
-<app-post-display *ngFor="let p of posts" [post]="p"></app-post-display>
+<app-post-display *ngFor="let p of posts" [post]="p" (delete)="onPostRemoved()"></app-post-display>
 
 </div>
