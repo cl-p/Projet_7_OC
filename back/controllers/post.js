@@ -5,7 +5,7 @@ const fs = require('fs');
 exports.createPost = (req, res, next) => {
   // Pour ajouter un fichier à la requête, le front-end doit envoyer les données de la requête sous la forme form-data, et non sous forme de JSON
 
-  
+
   const post = new Post({
     description: req.body.post,
     // pour likes et dislikes on leur met une valeur par defaut 
@@ -16,6 +16,7 @@ exports.createPost = (req, res, next) => {
 
     // on récupère l'id qui a été créé précédemment dans le middleware
     userId: req.auth.userId,
+    email: req.auth.email,
   
     
   });
@@ -42,7 +43,22 @@ exports.createPost = (req, res, next) => {
   );
 };
   
-
+exports.getOnePost = (req, res, next) => {
+  Post.findOne({
+    _id: req.params.id
+  }).then(
+    (post) => {
+      console.log(post);
+      res.status(200).json(post);
+    }
+  ).catch(
+    (error) => {
+      res.status(404).json({
+        error: error
+      });
+    }
+  );
+};
 
   
   exports.deletePost = (req, res, next) => {
@@ -51,16 +67,18 @@ exports.createPost = (req, res, next) => {
     // sinon, on retourne une erreur 
     Post.findOne({ _id: req.params.id }).then(
       (post) => {
+        
         // !post : veut dire que le post n'existe pas 
         if (!post) {
           res.status(404).json({
             error: new Error("Le post n'existe pas!")
           });
         }
-        if (post.userId !== req.auth.userId) {
+        if (post.userId !== req.auth.userId && !req.auth.isAdmin) {
           res.status(403).json({
             error: new Error('Unauthorized request!')
           });
+          return 
         }
         
         if (post.imageUrl != undefined){
@@ -88,19 +106,33 @@ exports.createPost = (req, res, next) => {
 
   
   exports.modifyPost = (req, res, next) => {
-    const postObject = req.file ?
-      {
-        ...JSON.parse(req.body.post),
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
-      } : { ...req.body };
-    Post.updateOne({ _id: req.params.id }, { ...postObject, _id: req.params.id })
-      .then(() => 
-        res.status(200).json({ message: 'Objet modifié !'})
-      )
-      .catch(error => 
-        console.log(error),
-        res.status(400).json({ error })
-      );
+    // on récupere le post correspondant à req.params.id
+    Post.findOne({ _id: req.params.id }).then(post =>{
+      // le post existe
+      if (post.userId === req.auth.userId || req.auth.isAdmin){
+        // la personne qui appelle cette action est soit le propriétaire soit l'admin
+        Post.updateOne({ _id: req.params.id }, { 
+          description: req.body.description
+        })
+        .then(() => 
+          res.status(200).json({ message: 'Objet modifié !'})
+        )
+        .catch(error => {
+          res.status(400).json(error)
+        });
+      }
+      else {
+        res.status(403).json({ message: "non authorisé"})
+      }
+
+
+
+    }).catch( () => res.status(404).json({erreur: "ce post n'existe pas"}))
+
+
+
+
+
   };
 
 

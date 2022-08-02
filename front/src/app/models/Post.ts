@@ -1,6 +1,6 @@
 export class Post{
     userId: string = ""
-    name: string = ""
+    email: string = ""
     _id: string = ""
     description: string = ""
     dislikes: number = 0

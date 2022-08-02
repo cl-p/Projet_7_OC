@@ -11,6 +11,9 @@ import { PostService } from '../services/post.service';
 export class PostDisplayComponent implements OnInit {
   @Input() post: Post = new Post();
   @Output() delete: EventEmitter<any> = new EventEmitter();
+ 
+
+
   constructor(
     private postService: PostService,
     private authService: AuthService,
@@ -59,16 +62,30 @@ export class PostDisplayComponent implements OnInit {
 
   isDisliked():boolean{
     return this.post.usersDisliked.some(i => {
-      return i === (this.authService.decodedToken as any).userId 
+      return i === this.authService.decodedToken.userId 
     })
   }
 
 
   removePost(){
+    if (window.confirm("Voulez-vous supprimer ce post?")) {
+      this.postService.deletePost(this.post._id).subscribe(resp =>{
+        this.delete.emit()
+      })
+    }
     
-    this.postService.deletePost(this.post._id).subscribe(resp =>{
-      this.delete.emit()
-    })
+  }
+
+  isOwner():boolean{
+    if (this.authService.decodedToken != null){
+     
+        return this.authService.decodedToken.isAdmin || this.authService.decodedToken.userId === this.post.userId
+      
+    }
+    else {
+      return false
+    }
+    
   }
 
 }

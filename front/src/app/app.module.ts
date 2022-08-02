@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
+import { UpdatePostComponent } from './update-post/update-post.component';
 
 
 
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'new-post', component: CreationPostPageComponent},
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},
+  { path: 'modify/:id', component:UpdatePostComponent  },
   { path: '**', component: NotFoundComponent},
 ];
 @NgModule({
@@ -32,7 +34,8 @@ const routes: Routes = [
     CreationPostPageComponent,
     PostDisplayComponent,
     SignUpComponent,
-    LoginComponent
+    LoginComponent,
+    UpdatePostComponent
     
   ],
   imports: [

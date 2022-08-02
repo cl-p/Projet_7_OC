@@ -63,4 +63,14 @@ export class PostService {
   deletePost(postId:string){
     return this.http.delete<any>(path + "post/" + postId, this.httpOptions() )
   }
+
+  modifyPost(postId: string, description: string){
+    return this.http.put<any>(path + "post/" + postId, {
+      description: description
+    }, this.httpOptions() )
+  }
+
+  getOnePost(postId: string){
+    return this.http.get<Post>(path + "post/" + postId, this.httpOptions() )
+  }
 }

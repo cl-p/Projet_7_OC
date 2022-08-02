@@ -16,7 +16,7 @@ export class AuthService {
     return localStorage.getItem("token")
   }
 
-  get decodedToken(){
+  get decodedToken():any | null {
     if (this.token != null){
       return jwt_decode(this.token)
     }

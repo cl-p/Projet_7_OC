@@ -16,6 +16,8 @@ export class SignUpComponent implements OnInit {
     'password': ['', Validators.required],
   });
 
+  inError: boolean = false;
+
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
@@ -27,8 +29,16 @@ export class SignUpComponent implements OnInit {
   
 
   onSubmit(){
-    this.authService.signUp(this.signUpForm.value.email, this.signUpForm.value.password).subscribe(resp =>{
-      this.router.navigate(["/"])
-    })
+    
+    if (this.signUpForm.value.email.match(".*@.*\\..*") != null && this.signUpForm.value.password.length > 6) {
+      this.authService.signUp(this.signUpForm.value.email, this.signUpForm.value.password).subscribe(resp =>{
+        this.router.navigate(["/"])
+      })
+    }
+    else {
+      this.inError = true
+    }
+   
   }
+
 }

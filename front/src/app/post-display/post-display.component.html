@@ -1,13 +1,23 @@
 <div class="post-card">
-    <h3>
-        {{ post.name }}
-    </h3>
+
     <div class="post-card-container">
-        <div class="suppression-post">
-            <button (click)="removePost()">Supprimer</button>
+        <div class="bouton-container" *ngIf="isOwner()">
+            <div class="modification-post">
+                <button [routerLink]="'/modify/'+ post._id">Modifier</button>
+            </div>
+            <div class="suppression-post">
+                <button (click)="removePost()">Supprimer</button>
+            </div>
         </div>
         <!-- {{}} = interpolation -->
-        {{ post.description}}
+        <div class="description">
+             {{ post.description}}
+        </div>
+        <div class="email-user">
+            {{ post.email }}
+        </div>
+       
+        
         <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
         <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
         <div class="icone">

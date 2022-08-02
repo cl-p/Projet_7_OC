@@ -63,7 +63,10 @@ exports.login = (req, res, next) => {
                 userId: user._id,
                 // token d'authentification --> utilisateurs de ne se connecter qu'une seule fois à leur compte 
                 token: jwt.sign(
-                { userId: user._id },
+                { 
+                    userId: user._id,
+                    isAdmin: user.isAdmin,
+                },
                 'RANDOM_TOKEN_SECRET',
                 { expiresIn: '24h' })
             })

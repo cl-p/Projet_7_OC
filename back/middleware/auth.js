@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/user');
 
 
 
@@ -13,17 +14,20 @@ module.exports = (req, res, next) => {
     // comparaison entre le token extrait et celui qui a été créer dans le login
     const decodedToken = jwt.verify(token, 'RANDOM_TOKEN_SECRET');
     const userId = decodedToken.userId;
+ 
+    User.findOne({ _id: userId }).then( u => {
+      // on crée la propriété "auth" sur la requête de type objet (qui contient la propriété userId)
+      req.auth = {
+        userId: userId,
+        isAdmin: u.isAdmin,
+        email: u.email,
+      }
+      next()
+    })
+    
 
-    // on crée la propriété "auth" sur la requête de type objet (qui contient la propriété userId)
-    req.auth = {
-      userId: userId
-    }
-
-    if (req.body.userId && req.body.userId !== userId) {
-      throw 'Invalid user ID';
-    } else {
-      next();
-    }
+    
+  
   } catch {
     console.log('catch')
     res.status(401).json({
