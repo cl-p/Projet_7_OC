@@ -14,11 +14,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './services/auth.service';
 import { UpdatePostComponent } from './update-post/update-post.component';
+import { AuthGard } from './guards/auth-gard';
 
 
 
 const routes: Routes = [
-  { path: '', component: AccueilPageComponent},
+  { path: '', component: AccueilPageComponent, canActivate: [AuthGard]},
   { path: 'new-post', component: CreationPostPageComponent},
   { path: 'login', component: LoginComponent },
   { path: 'sign-up', component: SignUpComponent},

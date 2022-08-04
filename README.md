@@ -1,6 +1,8 @@
 Pour démarrer le server :
---> git bash : npm run nodemon
+npm run nodemon
 
 
 pour démarrer la partie front :
---> git bash : npm run start
+La première fois faire :npm install 
+Puis :
+npm run start

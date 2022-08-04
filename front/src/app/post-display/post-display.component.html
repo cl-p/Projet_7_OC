@@ -3,20 +3,27 @@
     <div class="post-card-container">
         <div class="bouton-container" *ngIf="isOwner()">
             <div class="modification-post">
-                <button [routerLink]="'/modify/'+ post._id">Modifier</button>
+                <i class="far fa-edit" [routerLink]="'/modify/'+ post._id"></i>
             </div>
             <div class="suppression-post">
-                <button (click)="removePost()">Supprimer</button>
+                <i class="far fa-trash-alt" (click)="removePost()"></i>
             </div>
         </div>
         <!-- {{}} = interpolation -->
-        <div class="description">
-             {{ post.description}}
-        </div>
-        <div class="email-user">
-            {{ post.email }}
-        </div>
-       
+      
+            <div class="description">
+                {{ post.description}}
+            </div>
+
+            <div class="post-information">
+
+            <div class="email-user">
+                Posté par {{ post.email }}
+            </div>
+            <div class="date-post">
+                le {{ post.updatedAt | date: "dd/MM/yyyy à HH:mm"}} 
+            </div>
+       </div>
         
         <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
         <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">

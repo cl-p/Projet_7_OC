@@ -138,7 +138,9 @@ exports.getOnePost = (req, res, next) => {
 
   exports.getAllPost = (req, res, next) => {
       // find renvoie une promesse
-    Post.find().then(
+    Post.find()
+    .sort("-updatedAt")
+    .then(
       (post) => {
         res.status(200).json(post);
       }

@@ -5,10 +5,24 @@
     background-color: $primary-color;
     z-index: 0;
     box-shadow: 1px 3px 9px $tertiary-color;
-}
-img{
-    height: 140px;
-    width: auto;
-    margin-top: - 30px;
-    padding-left: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+    img{
+        height: 140px;
+        width: auto;
+        margin-top: 0px;
+        padding-left: 20px;
+    }
+    .logout{
+        border-radius: 5px;
+        background-color: white;
+        color: $tertiary-color;
+        border: 0px;
+        margin-right: 50px;
+    }
+
+
+
 }
