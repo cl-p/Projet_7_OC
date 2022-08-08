@@ -64,10 +64,11 @@ export class PostService {
     return this.http.delete<any>(path + "post/" + postId, this.httpOptions() )
   }
 
-  modifyPost(postId: string, description: string){
-    return this.http.put<any>(path + "post/" + postId, {
-      description: description
-    }, this.httpOptions() )
+  modifyPost(postId: string, description: string, image: File){
+    const body = new FormData();
+    body.append("post", description)
+    body.append("image", image)
+    return this.http.put<any>(path + "post/" + postId, body, this.httpOptions() )
   }
 
   getOnePost(postId: string){

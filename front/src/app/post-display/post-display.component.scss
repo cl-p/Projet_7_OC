@@ -4,66 +4,67 @@
 
 
 .post-card {
-
-    margin-top: 40px;
+    width: 100%;
+    box-shadow: 24px 24px 80px rgba(0, 0, 0, 0.1);
+    padding: 20px 20px 28px 20px;
+    box-sizing: border-box;
+    margin-top: 20px;
+    margin-bottom: 20px;
     display: flex;
-    align-content: center;
-
-    padding: 20px;
+    flex-direction: column;
     border-radius: 5px;
-    box-shadow: 2px 2px 3px $tertiary-color;
-    background-color: white;
-    
 
-    .post-card-container{
+    .post-content{
         display: flex;
-        justify-content: center;
-        align-items: center;
+        justify-content: space-around;
         flex-direction: column;
-        gap: 20px;
+        align-items: center;
         width: 100%;
-        .icone {
+        .post-content-information{
             display: flex;
             align-items: center;
-            gap: 30px;
-            .liked{
-
-                color: aquamarine;
-            }
-            .disliked{
-                color: $primary-color;
-            }
-            .far{
-                font-size: 20px;
-
-                &:hover{
-                    
-                    transition: all 350ms ease-in-out;
-                }
+            flex-direction: column;
+            justify-content: space-between;
+            align-content: center;
+            width: 100%;
+            margin-top: 30px;
+      
+            .description{
+                padding-bottom: 30px;
             }
         }
     }
 
-    .img-post-card{
-        height: 200px;
-        width: auto;
-    }
 
-    .bouton-container{
-        display: flex;
-        justify-content: flex-start;
-        width: 100%;
-        gap: 20px;
-    }
-    
-    .description{
-        font-size: larger;
-    }
+
 
     .post-information{
-        font-size: smaller;
+        display: block;
+        font-family: 'lato-light-italic';
+        font-size: x-small;
+        line-height: normal;
+        text-transform: uppercase;
+        color: $tertiary-color;
+        margin-bottom: 6px;
     }
 
-   
+    .img-post-card{
+        width: 50%;
+        max-height: 300px;
+        border-radius: 5px;
+        object-fit: cover;
+        margin-bottom: 18px;
+    }
+    .icone{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        padding-top: 20px;
+        padding-bottom: 20px;
+        gap: 20px;
+    }
+
+
+
 
 }

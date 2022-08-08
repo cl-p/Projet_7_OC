@@ -2,10 +2,10 @@
 <div class="container">
     <!-- formgroup permet de créer un form et de le lier au fichier ts -->
     <!-- submit : lors du click, la méthode addPost va se déclencher -->
-    <form [formGroup]="postForm" (submit)="addPost()">
+    <form [formGroup]="postForm" class="post-form" (submit)="addPost()">
     <div class="post-container">
         <!-- formControlName permet de lier la valeur du textarea au form -->
-        <textarea name="post" id="description" cols="100" rows="20" formControlName="description">Ecrivez ici ce que vous avez à dire !</textarea>
+        <textarea name="post" id="description" cols="50" rows="10" formControlName="description">Ecrivez ici ce que vous avez à dire !</textarea>
         <div class="icone-post">
             <input type="file" id="input-upload" (change)="handleFileInput($event)">
             <p> {{fileName}} </p>
@@ -15,6 +15,6 @@
 
 
     </div>
-    <button class="button-post" [disabled]="postForm.invalid"> Poster !</button>
+    <button class="button" [disabled]="postForm.invalid"> Poster !</button>
    </form>
 </div>

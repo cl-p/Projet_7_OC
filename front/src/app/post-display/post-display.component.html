@@ -10,23 +10,34 @@
             </div>
         </div>
         <!-- {{}} = interpolation -->
-      
-            <div class="description">
-                {{ post.description}}
-            </div>
+        <div class="post-content">
+            <div class="post-content-information">
+                <div class="description">
+                    {{ post.description}}
+                </div>  
+                <div class="post-information">
 
-            <div class="post-information">
+                            <div class="email-user">
+                                Posté par {{ post.email }}
+                            </div>
+                            <div class="date-post">
+                                le {{ post.updatedAt | date: "dd/MM/yyyy à HH:mm"}} 
+                            </div>
+                </div>
+            </div>
+            
 
-            <div class="email-user">
-                Posté par {{ post.email }}
-            </div>
-            <div class="date-post">
-                le {{ post.updatedAt | date: "dd/MM/yyyy à HH:mm"}} 
-            </div>
-       </div>
+            <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
+
+        </div>
+            
+
+
         
         <!-- [] = binding, pour lier, l'attribut à la valeur de l'expression à droite du = -->
-        <img [src]="post.imageUrl" alt="image" *ngIf="post.imageUrl != undefined " class="img-post-card">
+        
+        
+        
         <div class="icone">
             <i class="far fa-thumbs-up" (click)="onLike()" [ngClass]="{'liked': isLiked()}"></i> {{post.likes}}
             <i class="far fa-thumbs-down" (click)="onDislike()" [ngClass]="{'disliked': isDisliked()}"></i> {{post.dislikes}}

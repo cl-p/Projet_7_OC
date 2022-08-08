@@ -107,27 +107,63 @@ exports.getOnePost = (req, res, next) => {
   
   exports.modifyPost = (req, res, next) => {
     // on récupere le post correspondant à req.params.id
+    console.log(req.params.id)
     Post.findOne({ _id: req.params.id }).then(post =>{
       // le post existe
       if (post.userId === req.auth.userId || req.auth.isAdmin){
-        // la personne qui appelle cette action est soit le propriétaire soit l'admin
-        Post.updateOne({ _id: req.params.id }, { 
-          description: req.body.description
-        })
-        .then(() => 
-          res.status(200).json({ message: 'Objet modifié !'})
-        )
-        .catch(error => {
-          res.status(400).json(error)
-        });
+
+        post.description = req.body.post
+
+        if (req.file != undefined){ 
+          if (post.imageUrl != undefined){
+            const filename = post.imageUrl.split('/images/')[1];
+            fs.unlink(`images/${filename}`, (err) => {
+              console.log(err)
+              post.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+              
+              post.save()
+                .then(() => 
+                  res.status(200).json({ message: 'Objet modifié !'})
+                )
+                .catch(error => {
+                  res.status(400).json(error)
+                });
+
+              })
+          }
+          else {
+            post.imageUrl = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+              
+            post.save()
+              .then(() => 
+                res.status(200).json({ message: 'Objet modifié !'})
+              )
+              .catch(error => {
+                res.status(400).json(error)
+              });
+
+          }
+          
+        }
+        else {
+
+          post.save()
+          .then(() => 
+            res.status(200).json({ message: 'Objet modifié !'})
+          )
+          .catch(error => {
+            res.status(400).json(error)
+          });
+        }
+        // save renvoie une promesse
       }
       else {
         res.status(403).json({ message: "non authorisé"})
       }
-
-
-
-    }).catch( () => res.status(404).json({erreur: "ce post n'existe pas"}))
+    }).catch( erreur => {
+      console.log(erreur)
+      res.status(404).json(erreur)
+    })
 
 
 

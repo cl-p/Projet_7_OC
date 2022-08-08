@@ -1,12 +1,18 @@
 <div class="container">
     <!-- formgroup permet de créer un form et de le lier au fichier ts -->
     <!-- submit : lors du click, la méthode addPost va se déclencher -->
-    <form [formGroup]="modifiedFormGroup" (submit)="onPostModified()">
-    <div class="post-container">
-        <!-- formControlName permet de lier la valeur du textarea au form -->
-        <textarea name="post" id="description" cols="100" rows="20" formControlName="description">Ecrivez ici ce que vous avez à dire !</textarea>
-        
-    </div>
-    <button class="button-post"> Poster !</button>
+    <form [formGroup]="modifiedFormGroup" (submit)="onPostModified()" class="update-post-form">
+        <div class="post-container">
+            <!-- formControlName permet de lier la valeur du textarea au form -->
+            <textarea name="post" id="description" cols="50" rows="10" formControlName="description">Ecrivez ici ce que vous avez à dire !</textarea>
+            <div class="icone-post">
+                <input type="file" id="input-upload" (change)="handleFileInput($event)">
+                <p> {{fileName}} </p>
+                <span class="icone-button" (click)="selectFile()" ><i class="far fa-image"></i></span>
+            </div>
+            <img [src]="thePost.imageUrl" alt="image" *ngIf="thePost.imageUrl != undefined " class="img-post-card">
+        </div>
+
+        <button class="button"> Poster !</button>
    </form>
 </div>
